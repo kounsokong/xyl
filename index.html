@@ -231,7 +231,7 @@
   </style>
 </head>
 <body>
-  <button class="print-button" onclick="window.print()">🖨️ Print</button>
+  <button class="print-button" onclick="window.print()">🖨️ Print Invoice</button>
 
   <div class="invoice-container">
     <!-- Header -->
@@ -241,7 +241,7 @@
 
     <!-- Title -->
     <div class="title">
-      <h2 id="title_en"></br>COMMERCIAL INVOICE</h2>
+       <h2 id="title_en">COMMERCIAL INVOICE</h2>
     </div>
 
     <!-- Invoice Info -->
@@ -353,9 +353,12 @@
         headerImage.src = data.header_image_url;
       }
       
-    // Handle dynamic titles
+       // Handle dynamic title
        if (data.title_en) {
-         titleEn.textContent = data.title_en;
+         const titleEn = document.getElementById('title_en');
+         if (titleEn) {
+           titleEn.textContent = data.title_en;
+         }
        }
       
       // Simple fields
