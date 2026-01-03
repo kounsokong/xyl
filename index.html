@@ -292,8 +292,8 @@
         <table class="no-border invoice-meta" style="float: right;">
           <tr>
             <td>
-              <div class="kh-label">លេខវិក្កយបត្រ</div>
-              <div>Invoice No:</div>
+              <div class="kh-label" id="doc_no_kh">លេខវិក្កយបត្រ</div>
+              <div><span id="doc_no_en">Invoice No</span>:</div>
             </td>
             <td class="meta-value">
               <strong id="invoice_no"></strong>
@@ -393,7 +393,7 @@
       // Simple fields
       const fields = [
         'customer_name_kh', 'customer_name', 'address_kh', 'address',
-        'phone', 'vat_tin', 'invoice_no', 'date', 'subtotal'
+        'phone', 'vat_tin', 'invoice_no', 'date', 'subtotal', 'doc_no_en', 'doc_no_kh'
       ];
       
       fields.forEach(field => {
