@@ -343,9 +343,13 @@
         <td><b>សរុប Subtotal:</b></td>
         <td class="right" id="subtotal"></td>
       </tr>
+      <tr>
+        <td><b>បញ្ចុះតម្លៃ Discount:</b></td>
+        <td class="right" id="discount"></td>
+      </tr>
       <tr class="bold">
-          <td></td>
-          <td></td>
+          <td><b>សរុបរួម Grand Total:</b></td>
+          <td class="right" id="grand_total"></td>
       </tr>
     </table>
 
@@ -399,7 +403,8 @@
       // Simple fields
       const fields = [
         'customer_name_kh', 'customer_name', 'address_kh', 'address',
-        'phone', 'vat_tin', 'invoice_no', 'date', 'subtotal', 'doc_no_en', 'doc_no_kh'
+        'phone', 'vat_tin', 'invoice_no', 'date', 'subtotal', 'doc_no_en', 'doc_no_kh',
+        'discount', 'grand_total'
       ];
       
       fields.forEach(field => {
