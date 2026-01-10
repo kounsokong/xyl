@@ -165,7 +165,7 @@
 
     .totals td {
       border: none;
-      padding: 6px 0;
+      padding: 10px 0;
     }
 
     .totals td:first-child {
@@ -196,14 +196,24 @@
 
     .signature {
       width: 45%;
-      text-align: center;
+      text-align: right;
       font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
     }
 
     .signature-line {
       border-top: 1px solid #000;
       width: 80%;
-      margin: 45px auto 10px;
+      margin: 45px 0 10px 0;
+    }
+
+    .signature p {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      width: 80%;
     }
 
     .note {
@@ -254,6 +264,42 @@
       background: #218838;
     }
 
+    .language-button {
+      position: fixed;
+      top: 20px;
+      right: 130px;
+      padding: 8px 12px;
+      background: #ffc107;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 1000;
+      line-height: 1;
+    }
+
+    .language-button:hover {
+      background: #e0a800;
+    }
+
+    .lang-en {
+      display: table-row;
+    }
+
+    .lang-zh {
+      display: none;
+    }
+
+    body.chinese .lang-en {
+      display: none;
+    }
+
+    body.chinese .lang-zh {
+      display: table-row;
+    }
+
     @media print {
       body {
         background: white;
@@ -272,12 +318,17 @@
       .toggle-header-button {
         display: none;
       }
+
+      .language-button {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
   <button class="print-button" onclick="window.print()">🖨️</button>
   <button class="toggle-header-button" onclick="toggleHeader()">👁️</button>
+  <button class="language-button" onclick="toggleLanguage()">🌐</button>
 
   <div class="invoice-container">
     <!-- Header -->
@@ -295,12 +346,18 @@
       <!-- Left: Customer Info -->
       <div class="left">
         <table class="no-border">
-          <tr><td>ឈ្មោះក្រុមហ៊ុន៖ <span id="customer_name_kh"></span></td></tr>
-          <tr><td>Customer: <span id="customer_name"></span></td></tr>
-          <tr><td>អាសយដ្ឋាន៖ <span id="address_kh"></span></td></tr>
-          <tr><td>Address: <span id="address"></span></td></tr>
-          <tr><td>លេខទូរស័ព្ទ/TEL: <span id="phone"></span></td></tr>
-          <tr><td>លេខអតប (VAT TIN): <span id="vat_tin"></span></td></tr>
+          <tr class="lang-en"><td>ឈ្មោះក្រុមហ៊ុន៖ <span id="customer_name_kh"></span></td></tr>
+          <tr class="lang-zh"><td>公司名称：<span id="customer_name_kh"></span></td></tr>
+          <tr class="lang-en"><td>Customer: <span id="customer_name"></span></td></tr>
+          <tr class="lang-zh"><td>客户：<span id="customer_name"></span></td></tr>
+          <tr class="lang-en"><td>អាសយដ្ឋាន៖ <span id="address_kh"></span></td></tr>
+          <tr class="lang-zh"><td>地址：<span id="address_kh"></span></td></tr>
+          <tr class="lang-en"><td>Address: <span id="address"></span></td></tr>
+          <tr class="lang-zh"><td>Address: <span id="address"></span></td></tr>
+          <tr class="lang-en"><td>លេខទូរស័ព្ទ/TEL: <span id="phone"></span></td></tr>
+          <tr class="lang-zh"><td>电话/TEL: <span id="phone"></span></td></tr>
+          <tr class="lang-en"><td>លេខអតប (VAT TIN): <span id="vat_tin"></span></td></tr>
+          <tr class="lang-zh"><td>税号 (VAT TIN): <span id="vat_tin"></span></td></tr>
         </table>
       </div>
 
@@ -309,8 +366,10 @@
         <table class="no-border invoice-meta" style="float: right;">
           <tr>
             <td>
-              <div class="kh-label" id="doc_no_kh">លេខវិក្កយបត្រ</div>
-              <div><span id="doc_no_en">Invoice No</span>:</div>
+              <div class="kh-label lang-en" id="doc_no_kh">លេខវិក្កយបត្រ</div>
+              <div class="lang-en"><span id="doc_no_en">Invoice No</span>:</div>
+              <div class="kh-label lang-zh" id="doc_no_zh">发票编号</div>
+
             </td>
             <td class="meta-value">
               <strong id="invoice_no"></strong>
@@ -319,8 +378,9 @@
           </tr>
           <tr>
             <td>
-              <div class="kh-label">កាលបរិច្ឆេទ</div>
-              <div>Date:</div>
+              <div class="kh-label lang-en">កាលបរិច្ឆេទ</div>
+              <div class="lang-en">Date:</div>
+              <div class="kh-label lang-zh">日期</div>
             </td>
             <td class="meta-value">
               <span id="date"></span>
@@ -334,12 +394,19 @@
     <!-- Items Table -->
     <table>
       <thead>
-        <tr>
-          <th style="width: 5%; text-align: center;">ល.រ<br>No</th>
+        <tr class="lang-en">
+          <th style="width: 8%; text-align: center;">ល.រ<br>No</th>
           <th style="width: 50%;">បរិយាយមុខទំនិញ<br>Description</th>
-          <th style="width: 15%; text-align: center;">បរិមាណ<br>Quantity</th>
+          <th style="width: 12%; text-align: center;">បរិមាណ<br>Quantity</th>
           <th style="width: 15%;">តម្លៃឯកតា<br>Unit Price</th>
           <th style="width: 15%;">តម្លៃទំនិញ<br>Amount</th>
+        </tr>
+        <tr class="lang-zh">
+          <th style="width: 8%; text-align: center;">序号<br>No</th>
+          <th style="width: 50%;">商品描述<br>Description</th>
+          <th style="width: 12%; text-align: center;">数量<br>Quantity</th>
+          <th style="width: 15%;">单价<br>Unit Price</th>
+          <th style="width: 15%;">金额<br>Amount</th>
         </tr>
       </thead>
       <tbody id="items_tbody">
@@ -350,15 +417,18 @@
     <!-- Totals -->
     <table class="totals">
       <tr>
-        <td>សរុប Subtotal:</td>
+        <td class="lang-en">សរុប Subtotal:</td>
+        <td class="lang-zh">小计 Subtotal:</td>
         <td class="right" id="subtotal"></td>
       </tr>
       <tr>
-        <td>បញ្ចុះតម្លៃ Discount:</td>
+        <td class="lang-en">បញ្ចុះតម្លៃ Discount:</td>
+        <td class="lang-zh">折扣 Discount:</td>
         <td class="right" id="discount"></td>
       </tr>
-      <tr class="bold">
-          <td>សរុបរួម Grand Total:</td>
+      <tr>
+          <td class="lang-en">សរុបរួម Grand Total:</td>
+          <td class="lang-zh">总计 Grand Total:</td>
           <td class="right" id="grand_total"></td>
       </tr>
     </table>
@@ -367,12 +437,14 @@
     <div class="footer">
       <div class="signature">
         <div class="signature-line"></div>
-        <p>Customer's Signature & Name<br>ហត្ថលេខា និងឈ្មោះអតិថិជន</p>
+        <p class="lang-en">Customer's Signature & Name<br>ហត្ថលេខា និងឈ្មោះអតិថិជន</p>
+        <p class="lang-zh">客户签名及姓名<br>Customer's Signature & Name</p>
       </div>
       
       <div class="signature">
         <div class="signature-line"></div>
-        <p>Seller's Signature & Name<br>ហត្ថលេខា និងឈ្មោះអ្នកលក់</p>
+        <p class="lang-en">Seller's Signature & Name<br>ហត្ថលេខា និងឈ្មោះអ្នកលក់</p>
+        <p class="lang-zh">卖方签名及姓名<br>Seller's Signature & Name</p>
       </div>
     </div>
 
@@ -414,7 +486,7 @@
       const fields = [
         'customer_name_kh', 'customer_name', 'address_kh', 'address',
         'phone', 'vat_tin', 'invoice_no', 'date', 'subtotal', 'doc_no_en', 'doc_no_kh',
-        'discount', 'grand_total'
+        'discount', 'grand_total', 'customer_name_zh', 'address_zh', 'doc_no_zh', 'doc_no_en_zh'
       ];
       
       fields.forEach(field => {
@@ -469,6 +541,11 @@
     function toggleHeader() {
       const header = document.querySelector('.header');
       header.classList.toggle('hidden');
+    }
+
+    // Toggle language between English/Khmer and Chinese
+    function toggleLanguage() {
+      document.body.classList.toggle('chinese');
     }
 
     // Load data when page loads
