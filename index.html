@@ -165,7 +165,7 @@
 
     .totals td {
       border: none;
-      padding: 10px 0;
+      padding: 6px 0;
     }
 
     .totals td:first-child {
@@ -178,7 +178,16 @@
       font-weight: bold;
     }
 
+    .totals td:nth-child(2) {
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
     .totals .bold td:first-child {
+      border-top: 2px solid #000;
+    }
+
+    .totals .bold td:nth-child(2) {
       border-top: 2px solid #000;
     }
 
@@ -347,11 +356,11 @@
       <div class="left">
         <table class="no-border">
           <tr class="lang-en"><td>ឈ្មោះក្រុមហ៊ុន៖ <span id="customer_name_kh"></span></td></tr>
-          <tr class="lang-zh"><td>公司名称：<span id="customer_name_kh"></span></td></tr>
+          <tr class="lang-zh"><td>公司名称：<span id="customer_name_zh"></span></td></tr>
           <tr class="lang-en"><td>Customer: <span id="customer_name"></span></td></tr>
           <tr class="lang-zh"><td>客户：<span id="customer_name"></span></td></tr>
           <tr class="lang-en"><td>អាសយដ្ឋាន៖ <span id="address_kh"></span></td></tr>
-          <tr class="lang-zh"><td>地址：<span id="address_kh"></span></td></tr>
+          <tr class="lang-zh"><td>地址：<span id="address_zh"></span></td></tr>
           <tr class="lang-en"><td>Address: <span id="address"></span></td></tr>
           <tr class="lang-zh"><td>Address: <span id="address"></span></td></tr>
           <tr class="lang-en"><td>លេខទូរស័ព្ទ/TEL: <span id="phone"></span></td></tr>
@@ -369,7 +378,7 @@
               <div class="kh-label lang-en" id="doc_no_kh">លេខវិក្កយបត្រ</div>
               <div class="lang-en"><span id="doc_no_en">Invoice No</span>:</div>
               <div class="kh-label lang-zh" id="doc_no_zh">发票编号</div>
-
+              <div class="lang-zh"><span id="doc_no_en_zh">Invoice No</span>:</div>
             </td>
             <td class="meta-value">
               <strong id="invoice_no"></strong>
@@ -381,6 +390,7 @@
               <div class="kh-label lang-en">កាលបរិច្ឆេទ</div>
               <div class="lang-en">Date:</div>
               <div class="kh-label lang-zh">日期</div>
+              <div class="lang-zh">Date:</div>
             </td>
             <td class="meta-value">
               <span id="date"></span>
@@ -395,16 +405,16 @@
     <table>
       <thead>
         <tr class="lang-en">
-          <th style="width: 8%; text-align: center;">ល.រ<br>No</th>
+          <th style="width: 5%; text-align: center;">ល.រ<br>No</th>
           <th style="width: 50%;">បរិយាយមុខទំនិញ<br>Description</th>
-          <th style="width: 12%; text-align: center;">បរិមាណ<br>Quantity</th>
+          <th style="width: 15%; text-align: center;">បរិមាណ<br>Quantity</th>
           <th style="width: 15%;">តម្លៃឯកតា<br>Unit Price</th>
           <th style="width: 15%;">តម្លៃទំនិញ<br>Amount</th>
         </tr>
         <tr class="lang-zh">
-          <th style="width: 8%; text-align: center;">序号<br>No</th>
+          <th style="width: 5%; text-align: center;">序号<br>No</th>
           <th style="width: 50%;">商品描述<br>Description</th>
-          <th style="width: 12%; text-align: center;">数量<br>Quantity</th>
+          <th style="width: 15%; text-align: center;">数量<br>Quantity</th>
           <th style="width: 15%;">单价<br>Unit Price</th>
           <th style="width: 15%;">金额<br>Amount</th>
         </tr>
@@ -419,17 +429,20 @@
       <tr>
         <td class="lang-en">សរុប Subtotal:</td>
         <td class="lang-zh">小计 Subtotal:</td>
-        <td class="right" id="subtotal"></td>
+        <td class="right lang-en" id="subtotal"></td>
+        <td class="right lang-zh" id="subtotal"></td>
       </tr>
       <tr>
         <td class="lang-en">បញ្ចុះតម្លៃ Discount:</td>
         <td class="lang-zh">折扣 Discount:</td>
-        <td class="right" id="discount"></td>
+        <td class="right lang-en" id="discount"></td>
+        <td class="right lang-zh" id="discount"></td>
       </tr>
-      <tr>
+      <tr class="bold">
           <td class="lang-en">សរុបរួម Grand Total:</td>
           <td class="lang-zh">总计 Grand Total:</td>
-          <td class="right" id="grand_total"></td>
+          <td class="right lang-en" id="grand_total"></td>
+          <td class="right lang-zh" id="grand_total"></td>
       </tr>
     </table>
 
