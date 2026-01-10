@@ -300,6 +300,27 @@
       display: table-row;
     }
 
+    .totals .lang-en,
+    .totals .lang-zh {
+      display: table-cell;
+    }
+
+    body.chinese .totals .lang-en {
+      display: none;
+    }
+
+    body.chinese .totals .lang-zh {
+      display: table-cell;
+    }
+
+    body:not(.chinese) .totals .lang-zh {
+      display: none;
+    }
+
+    body:not(.chinese) .totals .lang-en {
+      display: table-cell;
+    }
+
     @media print {
       body {
         background: white;
