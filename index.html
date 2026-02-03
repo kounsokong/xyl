@@ -30,7 +30,7 @@
 
     .header {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       position: running(header);
     }
 
@@ -53,11 +53,12 @@
 
     .title {
       text-align: center;
-      margin: 10px 0;
+      margin: 35px 0;
     }
 
     .title h2 {
-      font-size: 16px;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
       margin: 0;
       font-weight: bold;
     }
@@ -219,8 +220,9 @@
     .note {
       text-align: center;
       font-weight: bold;
-      font-size: 8px;
-      margin-top: 8px;
+      font-style: italic;
+      font-size: 10px;
+      margin-top: 50px;
       clear: both;
     }
 
@@ -365,20 +367,23 @@
     <!-- Invoice Info -->
     <div class="invoice-info">
       <!-- Left: Customer Info -->
-      <div class="left">
-        <table class="no-border">
-          <tr class="lang-en"><td>ឈ្មោះក្រុមហ៊ុន៖ <span id="customer_name_kh"></span></td></tr>
-          <tr class="lang-zh"><td>公司名称：<span id="customer_name_zh"></span></td></tr>
-          <tr class="lang-en"><td>Customer: <span id="customer_name"></span></td></tr>
-          <tr class="lang-en"><td>អាសយដ្ឋាន៖ <span id="address_kh"></span></td></tr>
-          <tr class="lang-zh"><td>地址：<span id="address_zh"></span></td></tr>
-          <tr class="lang-en"><td>Address: <span id="address"></span></td></tr>
-          <tr class="lang-en"><td>លេខទូរស័ព្ទ/TEL: <span id="phone"></span></td></tr>
-          <tr class="lang-zh"><td>电话/TEL: <span id="phone_zh"></span></td></tr>
-          <tr class="lang-en"><td>លេខអតប (VAT TIN): <span id="vat_tin"></span></td></tr>
-          <tr class="lang-zh"><td>税号 (VAT TIN): <span id="vat_tin_zh"></span></td></tr>
-        </table>
-      </div>
+    <div class="left">
+      <table class="no-border">
+        <tr class="lang-en"><td><b>ឈ្មោះក្រុមហ៊ុន៖</b> <span id="customer_name_kh"></span></td></tr>
+        <tr class="lang-zh"><td><b>公司名称：</b><span id="customer_name_zh"></span></td></tr>
+        <tr class="lang-en"><td><b>Customer:</b> <span id="customer_name"></span></td></tr>
+        
+        <tr class="lang-en"><td><b>អាសយដ្ឋាន៖</b> <span id="address_kh"></span></td></tr>
+        <tr class="lang-zh"><td><b>地址：</b><span id="address_zh"></span></td></tr>
+        <tr class="lang-en"><td><b>Address:</b> <span id="address"></span></td></tr>
+        
+        <tr class="lang-en"><td><b>លេខទូរស័ព្ទ/TEL:</b> <span id="phone"></span></td></tr>
+        <tr class="lang-zh"><td><b>电话/TEL:</b> <span id="phone_zh"></span></td></tr>
+        
+        <tr class="lang-en"><td><b>លេខអតប (VAT TIN):</b> <span id="vat_tin"></span></td></tr>
+        <tr class="lang-zh"><td><b>税号 (VAT TIN):</b> <span id="vat_tin_zh"></span></td></tr>
+      </table>
+    </div>
 
       <!-- Right: Invoice Info -->
       <div class="right">
