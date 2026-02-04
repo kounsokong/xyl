@@ -187,12 +187,11 @@
       border-top: 2px solid #000;
     }
 
-    /* Remarks section styling */
     .remarks-section {
       clear: both;
       float: left;
       width: 60%;
-      margin-top: -85px; /* Aligns visually with the totals table */
+      margin-top: -85px; 
       min-height: 100px;
     }
 
@@ -226,7 +225,7 @@
     .signature-line {
       border-top: 1px solid #000;
       width: 80%;
-      margin: 40px 0 10px 0;
+      margin: 100px 0 10px 0;
     }
 
     .signature p {
@@ -376,16 +375,26 @@
     <div class="invoice-info">
       <div class="left">
         <table class="no-border">
+          <tr class="lang-en">
+            <td style="padding-bottom: 20px;">
+              <b>ចេញដោយ</b><br>
+              <b>Issued by:</b> <span id="issued_by"></span>
+            </td>
+          </tr>
+          <tr class="lang-zh">
+            <td style="padding-bottom: 20px;">
+              <b>发行人</b><br>
+              <b>Issued by:</b> <span id="issued_by_zh"></span>
+            </td>
+          </tr>
+          
           <tr class="lang-en"><td><b>ឈ្មោះក្រុមហ៊ុន៖</b> <span id="customer_name_kh"></span></td></tr>
           <tr class="lang-zh"><td><b>公司名称：</b><span id="customer_name_zh"></span></td></tr>
           <tr class="lang-en"><td><b>Customer:</b> <span id="customer_name"></span></td></tr>
           <tr class="lang-en"><td><b>អាសយដ្ឋាន៖</b> <span id="address_kh"></span></td></tr>
           <tr class="lang-zh"><td><b>地址：</b><span id="address_zh"></span></td></tr>
-          <tr class="lang-en"><td><b>Address:</b> <span id="address"></span></td></tr>
           <tr class="lang-en"><td><b>លេខទូរស័ព្ទ/TEL:</b> <span id="phone"></span></td></tr>
           <tr class="lang-zh"><td><b>电话/TEL:</b> <span id="phone_zh"></span></td></tr>
-          <tr class="lang-en"><td><b>លេខអតប (VAT TIN):</b> <span id="vat_tin"></span></td></tr>
-          <tr class="lang-zh"><td><b>税号 (VAT TIN):</b> <span id="vat_tin_zh"></span></td></tr>
         </table>
       </div>
 
@@ -506,10 +515,11 @@
         'customer_name_kh', 'customer_name', 'address_kh', 'address',
         'phone', 'phone_zh', 'vat_tin',  'vat_tin_zh', 'invoice_no', 'date', 'subtotal', 'doc_no_en', 'doc_no_kh',
         'discount', 'grand_total', 'customer_name_zh', 'address_zh', 'doc_no_zh', 'doc_no_en_zh',
-        'remarks' // Added dynamic remarks field
+        'remarks', 'issued_by', 'issued_by_zh'
       ];
       
       fields.forEach(field => {
+        const elements = document.querySelectorAll('#' + field); // Use querySelectorAll for duplicate IDs if necessary, though ID should be unique
         const element = document.getElementById(field);
         if (element && data[field]) {
           element.textContent = data[field];
