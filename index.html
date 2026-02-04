@@ -41,8 +41,8 @@
       display: block;
     }
 
-    .header.hidden {
-      display: none;
+    .header.hidden, .issued-by-section.hidden {
+      display: none !important;
     }
 
     @page {
@@ -116,6 +116,8 @@
       font-weight: normal;
       position: relative;
       font-family: Arial, sans-serif;
+      display: inline-block;
+      width: 70%; /* Adjust as needed to align with other meta fields */
     }
 
     .meta-value strong {
@@ -134,26 +136,12 @@
       margin-top: 5px;
     }
 
-    .section {
-      margin-bottom: 12px;
-    }
-
-    .shipment-info td {
-      border: none;
-      padding: 6px 6px;
-    }
-
     .right {
       text-align: right;
     }
 
     .bold {
       font-weight: bold;
-    }
-
-    .exchange {
-      margin-top: 8px;
-      font-size: 11px;
     }
 
     .totals {
@@ -179,11 +167,7 @@
       font-weight: bold;
     }
 
-    .totals .bold td:first-child {
-      border-top: 2px solid #000;
-    }
-
-    .totals .bold td:last-child {
+    .totals .bold td:first-child, .totals .bold td:last-child {
       border-top: 2px solid #000;
     }
 
@@ -244,12 +228,10 @@
       clear: both;
     }
 
-    .print-button {
+    .btn {
       position: fixed;
       top: 20px;
-      right: 20px;
       padding: 8px 12px;
-      background: #007bff;
       color: white;
       border: none;
       border-radius: 4px;
@@ -260,108 +242,34 @@
       line-height: 1;
     }
 
-    .print-button:hover {
-      background: #0056b3;
-    }
+    .print-button { right: 20px; background: #007bff; }
+    .toggle-header-button { right: 75px; background: #28a745; }
+    .toggle-issued-button { right: 130px; background: #17a2b8; }
+    .language-button { right: 185px; background: #ffc107; }
 
-    .toggle-header-button {
-      position: fixed;
-      top: 20px;
-      right: 75px;
-      padding: 8px 12px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 1000;
-      line-height: 1;
-    }
-
-    .toggle-header-button:hover {
-      background: #218838;
-    }
-
-    .language-button {
-      position: fixed;
-      top: 20px;
-      right: 130px;
-      padding: 8px 12px;
-      background: #ffc107;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 1000;
-      line-height: 1;
-    }
-
-    .language-button:hover {
-      background: #e0a800;
-    }
-
-    .lang-en {
-      display: table-row;
-    }
-
-    .lang-zh {
-      display: none;
-    }
-
-    body.chinese .lang-en {
-      display: none;
-    }
-
-    body.chinese .lang-zh {
-      display: table-row;
-    }
-
-    .totals .lang-en,
-    .totals .lang-zh {
-      display: table-cell;
-    }
-
-    body.chinese .totals .lang-en {
-      display: none;
-    }
-
-    body.chinese .totals .lang-zh {
-      display: table-cell;
-    }
-
-    body:not(.chinese) .totals .lang-zh {
-      display: none;
-    }
-
-    body:not(.chinese) .totals .lang-en {
-      display: table-cell;
-    }
+    .lang-en { display: table-row; }
+    .lang-zh { display: none; }
+    body.chinese .lang-en { display: none; }
+    body.chinese .lang-zh { display: table-row; }
+    
+    .totals .lang-en, .totals .lang-zh { display: table-cell; }
+    body.chinese .totals .lang-en { display: none; }
+    body.chinese .totals .lang-zh { display: table-cell; }
+    body:not(.chinese) .totals .lang-zh { display: none; }
+    body:not(.chinese) .totals .lang-en { display: table-cell; }
 
     @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-      
-      .invoice-container {
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .print-button, .toggle-header-button, .language-button {
-        display: none;
-      }
+      body { background: white; padding: 0; }
+      .invoice-container { box-shadow: none; padding: 0; }
+      .btn { display: none; }
     }
   </style>
 </head>
 <body>
-  <button class="print-button" onclick="window.print()">🖨️</button>
-  <button class="toggle-header-button" onclick="toggleHeader()">👁️</button>
-  <button class="language-button" onclick="toggleLanguage()">🌐</button>
+  <button class="btn print-button" onclick="window.print()">🖨️</button>
+  <button class="btn toggle-header-button" onclick="toggleHeader()">👁️</button>
+  <button class="btn toggle-issued-button" onclick="toggleIssuedBy()">👤</button>
+  <button class="btn language-button" onclick="toggleLanguage()">🌐</button>
 
   <div class="invoice-container">
     <div class="header">
@@ -375,16 +283,28 @@
     <div class="invoice-info">
       <div class="left">
         <table class="no-border">
-          <tr class="lang-en">
+          <tr class="lang-en issued-by-section">
             <td style="padding-bottom: 20px;">
               <b>ចេញដោយ</b><br>
-              <b>Issued by:</b> <span id="issued_by"></span>
+              <div style="display: flex; align-items: baseline;">
+                <b style="white-space: nowrap;">Issued by:</b>
+                <div class="meta-value">
+                  <span id="issued_by"></span>
+                  <div class="dotted-line"></div>
+                </div>
+              </div>
             </td>
           </tr>
-          <tr class="lang-zh">
+          <tr class="lang-zh issued-by-section">
             <td style="padding-bottom: 20px;">
               <b>发行人</b><br>
-              <b>Issued by:</b> <span id="issued_by_zh"></span>
+              <div style="display: flex; align-items: baseline;">
+                <b style="white-space: nowrap;">Issued by:</b>
+                <div class="meta-value">
+                  <span id="issued_by_zh"></span>
+                  <div class="dotted-line"></div>
+                </div>
+              </div>
             </td>
           </tr>
           
@@ -500,12 +420,8 @@
 
     function populateInvoice() {
       const data = getUrlParams();
-      
       const headerImage = document.getElementById('header_image');
-      if (data.header_image_url) {
-        headerImage.src = data.header_image_url;
-      }
-      
+      if (data.header_image_url) headerImage.src = data.header_image_url;
       if (data.title_en) {
         const titleEn = document.getElementById('title_en');
         if (titleEn) titleEn.textContent = data.title_en;
@@ -519,35 +435,25 @@
       ];
       
       fields.forEach(field => {
-        const elements = document.querySelectorAll('#' + field); // Use querySelectorAll for duplicate IDs if necessary, though ID should be unique
         const element = document.getElementById(field);
-        if (element && data[field]) {
-          element.textContent = data[field];
-        }
+        if (element && data[field]) element.textContent = data[field];
       });
 
       const tbody = document.getElementById('items_tbody');
       tbody.innerHTML = '';
-      
       if (data.items) {
         try {
           const items = JSON.parse(data.items);
-          items.forEach((item, index) => {
-            addItemRow(index + 1, item);
-          });
-        } catch (e) {
-          console.error('Error parsing items:', e);
-        }
+          items.forEach((item, index) => addItemRow(index + 1, item));
+        } catch (e) { console.error('Error parsing items:', e); }
       } else {
-        const item = {
-          no: data.no || '1',
+        addItemRow(1, {
           item_name: data.item_name || '',
           item_name_kh: data.item_name_kh || '',
           qty: data.item_qty || '',
           rate: data.rate || '',
           amount: data.amount || ''
-        };
-        addItemRow(item.no, item);
+        });
       }
     }
 
@@ -564,8 +470,12 @@
     }
 
     function toggleHeader() {
-      const header = document.querySelector('.header');
-      header.classList.toggle('hidden');
+      document.querySelector('.header').classList.toggle('hidden');
+    }
+
+    function toggleIssuedBy() {
+      const sections = document.querySelectorAll('.issued-by-section');
+      sections.forEach(el => el.classList.toggle('hidden'));
     }
 
     function toggleLanguage() {
